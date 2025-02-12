@@ -17,7 +17,7 @@ const Main = styled.main`
 
 const Section = styled.section`
   max-width: 1280px;
-  min-height: 100vh;
+  min-height: 80dvh;
   margin: 0 auto;
   background-color: white;
   padding: ${theme.sizes.clamp24};
@@ -33,7 +33,7 @@ const App = () => {
         <Section>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/pokemon/:id" element={<Details />} />
+            <Route path="/pokemon/:name" element={<Details />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Section>
