@@ -17,7 +17,7 @@ const Main = styled.main`
 
 const Section = styled.section`
   max-width: 1280px;
-  min-height: 80dvh;
+  min-height: 100vh;
   margin: 0 auto;
   background-color: white;
   padding: ${theme.sizes.clamp24};
