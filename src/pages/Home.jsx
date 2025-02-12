@@ -7,12 +7,11 @@ const StyledList = styled.ul`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(min(100%, 208px), 1fr));
   gap: clamp(20px, 3.125vw, 40px);
-  padding: clamp(20px, 3.125vw, 40px);
 `;
 
 const Home = () => {
   const [pokemonData, setPokemonData] = useState([]);
-  const [offset, setOffset] = useState(50);
+  const [offset, setOffset] = useState(0);
 
   useEffect(() => {
     const fetchPokemonData = async () => {
