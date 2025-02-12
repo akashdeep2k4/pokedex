@@ -13,8 +13,7 @@ const Logo = styled.div`
 const LogoText = styled.h1`
   max-width: 1280px;
   margin: 0 auto;
-  padding-inline: ${theme.sizes.clamp24};
-  padding-bottom: clamp(12px, 1.78vw, 28px);
+  padding: ${theme.sizes.medium};
   color: ${theme.colors.yellow};
   font-family: ${theme.fonts.logo};
   font-size: clamp(2rem, 5vw, 4rem);

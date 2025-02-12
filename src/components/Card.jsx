@@ -4,7 +4,9 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Loader from "./Loader";
 
-const StyledCard = styled.li``;
+const StyledCard = styled.li`
+  text-align: center;
+`;
 
 const CardContent = styled.div`
   background-color: white;
