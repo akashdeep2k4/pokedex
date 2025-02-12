@@ -58,7 +58,10 @@ const Card = ({ pokemon }) => {
             {isLoading && <Loader />}
             <img src={sprite} alt={pokemon.name} onLoad={() => setIsLoading(false)} style={{ display: isLoading ? "none" : "block" }} />
           </PokemonImage>
-          <PokemonName>{pokemon.name}</PokemonName>
+          <PokemonName>
+            {isLoading && "Loading..."}
+            <span style={{ display: isLoading ? "none" : "block" }}>{pokemon.name}</span>
+          </PokemonName>
         </CardContent>
       </Link>
     </StyledCard>
