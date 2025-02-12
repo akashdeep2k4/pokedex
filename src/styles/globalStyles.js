@@ -4,15 +4,18 @@ import { theme } from "./theme";
 const GlobalStyle = createGlobalStyle`
   @font-face {
     font-family: "Pokemon Solid";
-    src: url("../src/assets/fonts/PokemonSolid.ttf") format("truetype");
+    src: url("../src/assets/fonts/PokemonSolid.woff2") format("woff2"),
+         url("../src/assets/fonts/PokemonSolid.ttf") format("truetype");
   }
   @font-face {
     font-family: "Fredoka One";
-    src: url("../src/assets/fonts/FredokaOne-Regular.ttf") format("truetype");
+    src: url("../src/assets/fonts/FredokaOne-Regular.woff2") format("woff2"),
+         url("../src/assets/fonts/FredokaOne-Regular.ttf") format("truetype");
   }
   @font-face {
     font-family: "Montserrat";
-    src: url("../src/assets/fonts/Montserrat-Regular.ttf") format("truetype");
+    src: url("../src/assets/fonts/Montserrat-Regular.woff2") format("woff2"),
+         url("../src/assets/fonts/Montserrat-Regular.ttf") format("truetype");
   }
 
   * {
