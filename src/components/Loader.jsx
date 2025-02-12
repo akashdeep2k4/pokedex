@@ -21,7 +21,7 @@ const LoaderImage = styled.img`
 const Loader = () => {
   return (
     <StyledLoader>
-      <LoaderImage src="../src/assets/images/pokeball.svg" />
+      <LoaderImage src="/logo.svg" />
     </StyledLoader>
   );
 };
