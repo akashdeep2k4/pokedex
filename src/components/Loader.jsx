@@ -1,8 +1,8 @@
 import styled, { keyframes } from "styled-components";
 
-const StyledLoader = styled.figure`
-  /* width: 100%; */
-`;
+// const StyledLoader = styled.figure`
+/* width: 100%; */
+// `;
 
 const spin = keyframes`
   from {
@@ -20,9 +20,9 @@ const LoaderImage = styled.img`
 
 const Loader = () => {
   return (
-    <StyledLoader>
-      <LoaderImage src="/logo.svg" />
-    </StyledLoader>
+    // <StyledLoader>
+    <LoaderImage src="/logo.svg" />
+    // </StyledLoader>
   );
 };
 
