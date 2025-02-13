@@ -41,30 +41,38 @@ const PokemonName = styled.h1`
 const Card = ({ pokemon }) => {
   const [sprite, setSprite] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isError, setIsError] = useState(false);
 
   useEffect(() => {
     const fetchPokimonSprite = async () => {
-      const response = await fetch(pokemon.url);
-      const data = await response.json();
-      setSprite(data.sprites.other.dream_world.front_default);
+      try {
+        const response = await fetch(pokemon.url);
+        const data = await response.json();
+        setSprite(sprite.concat(data.sprites.other.dream_world.front_default));
+      } catch (error) {
+        setIsError(true);
+      }
     };
     fetchPokimonSprite();
   }, [pokemon.url]);
 
   return (
     <StyledCard>
-      <Link to={`/pokemon/${pokemon.name}`}>
-        <CardContent>
-          <PokemonImage>
-            {isLoading && <Loader />}
-            <img src={sprite} alt={pokemon.name} onLoad={() => setIsLoading(false)} style={{ display: isLoading ? "none" : "block" }} />
-          </PokemonImage>
-          <PokemonName>
-            <span style={{ display: isLoading ? "none" : "block" }}>{isLoading && "Loading..."}</span>
-            {pokemon.name}
-          </PokemonName>
-        </CardContent>
-      </Link>
+      {isError && <ErrorText>Error Fetching Data.</ErrorText>}
+      {sprite && !isError && (
+        <Link to={`/pokemon/${pokemon.name}`}>
+          <CardContent>
+            <PokemonImage>
+              {isLoading && <Loader />}
+              <img src={sprite} alt={pokemon.name} onLoad={() => setIsLoading(false)} style={{ display: isLoading ? "none" : "block" }} />
+            </PokemonImage>
+            <PokemonName>
+              <span style={{ display: isLoading ? "none" : "block" }}>{isLoading && "Loading..."}</span>
+              {pokemon.name}
+            </PokemonName>
+          </CardContent>
+        </Link>
+      )}
     </StyledCard>
   );
 };
