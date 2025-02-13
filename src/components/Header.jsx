@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { theme } from "../styles/theme";
+import { Link } from "react-router-dom";
 
 const StyledHeader = styled.header`
   text-align: center;
@@ -35,7 +36,9 @@ const Header = () => {
   return (
     <StyledHeader>
       <Logo>
-        <LogoText>PoKeDeX</LogoText>
+        <LogoText>
+          <Link to={"/"}>PoKeDeX</Link>
+        </LogoText>
       </Logo>
       <TaglineText>Your Ultimate Pokemon Explorer</TaglineText>
     </StyledHeader>
