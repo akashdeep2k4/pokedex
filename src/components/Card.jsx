@@ -28,7 +28,6 @@ const PokemonImage = styled.figure`
   justify-content: center;
   aspect-ratio: 1 / 1;
   margin-bottom: 16px;
-  /* overflow: hidden; */
   background-color: ${theme.colors.gray};
 `;
 
@@ -61,23 +60,12 @@ const Card = ({ pokemon }) => {
             <img src={sprite} alt={pokemon.name} onLoad={() => setIsLoading(false)} style={{ display: isLoading ? "none" : "block" }} />
           </PokemonImage>
           <PokemonName>
-            {isLoading && "Loading..."}
-            <span style={{ display: isLoading ? "none" : "block" }}>{pokemon.name}</span>
+            <span style={{ display: isLoading ? "none" : "block" }}>{isLoading && "Loading..."}</span>
+            {pokemon.name}
           </PokemonName>
         </CardContent>
       </Link>
     </StyledCard>
-
-    // <Link to={`/pokemon/${pokemon.name}`}>
-    //   <StyledCard>
-    //     <PokemonImage>
-    //       {isLoading && <img className="loader" src="/images/pokeball.svg" alt="Loading..." />}
-    //       <img src={pokemon.image} alt={pokemon.name} onLoad={() => setIsLoading(false)} style={{ display: isLoading ? "none" : "block" }} />
-    //     </PokemonImage>
-
-    //     <PokemonName>{pokemon.name}</PokemonName>
-    //   </StyledCard>
-    // </Link>
   );
 };
 
