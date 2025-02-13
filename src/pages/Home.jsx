@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import Header from "../components/Header";
 import Card from "../components/Card";
+import Footer from "../components/Footer";
 
-const StyledHome = styled.div``;
 const StyledList = styled.ul`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(min(100%, 208px), 1fr));
@@ -23,13 +24,19 @@ const Home = () => {
   }, [offset]);
 
   return (
-    <StyledHome>
-      <StyledList>
-        {pokemonData.map((currentPokemon) => {
-          return <Card key={currentPokemon.name} pokemon={currentPokemon} />;
-        })}
-      </StyledList>
-    </StyledHome>
+    <>
+      <Header />
+
+      <section>
+        <StyledList>
+          {pokemonData.map((currentPokemon) => {
+            return <Card key={currentPokemon.name} pokemon={currentPokemon} />;
+          })}
+        </StyledList>
+      </section>
+
+      <Footer />
+    </>
   );
 };
 
