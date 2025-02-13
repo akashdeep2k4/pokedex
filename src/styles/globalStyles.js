@@ -50,6 +50,7 @@ const GlobalStyle = createGlobalStyle`
     margin: 0 auto;
     background-color: white;
     padding: ${theme.sizes.clamp24};
+    text-align: center;
   }
 
   a {
