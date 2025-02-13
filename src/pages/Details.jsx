@@ -16,6 +16,10 @@ const StyledDetails = styled.div`
 `;
 
 const PokemonPicture = styled.figure`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1 / 1;
   background-color: ${theme.colors.gray};
   width: 87.5vw;
   max-width: 360px;
@@ -35,6 +39,10 @@ const Name = styled.span`
   font-family: ${theme.fonts.heading};
   font-weight: normal;
   font-size: 32px;
+`;
+
+const Id = styled.span`
+  font-size: 14px;
 `;
 
 const Gif = styled.figure`
@@ -65,10 +73,14 @@ const AboutData = styled.li`
   text-align: center;
 `;
 
-const Ability = styled.ul`
+const Abilities = styled.ul`
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 20px;
 `;
+
+const Ability = styled.li``;
 
 const Stats = styled.ul`
   display: flex;
@@ -81,23 +93,35 @@ const Stat = styled.li`
   text-align: center;
 `;
 
+const LoadingText = styled.p`
+  text-align: center;
+  margin-top: 128px;
+`;
+
+const ErrorText = styled.p`
+  text-align: center;
+  color: ${theme.colors.red};
+`;
+
 const Details = () => {
   const { querry } = useParams();
   const [pokemonDetails, setPokemonDetails] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [isError, setIsError] = useState(null);
+  const [isError, setIsError] = useState(false);
 
   useEffect(() => {
     const fetchPokemonDetails = async () => {
+      setIsLoading(true);
+      setIsError(false);
       try {
         const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${querry}`);
         if (!response.ok) {
-          throw new Error(`Failed to fetch: ${response.status} ${response.statusText}`);
+          throw new Error("Failed to fetch Pokemon Details");
         }
         const data = await response.json();
         setPokemonDetails(data);
       } catch (error) {
-        setIsError(error.message);
+        setIsError(true);
       } finally {
         setIsLoading(false);
       }
@@ -111,63 +135,65 @@ const Details = () => {
       <Header />
 
       <section>
-        <StyledDetails>
-          <PokemonPicture>
-            {pokemonDetails.sprites?.other.dream_world.front_default && <img src={pokemonDetails.sprites.other.dream_world.front_default} alt="Dream World Sprite" />}
-            {/* {pokemonDetails.sprites?.other["official-artwork"].front_default && <img src={pokemonDetails.sprites.other["official-artwork"].front_default} alt="Official Artwork" />} */}
-          </PokemonPicture>
+        {isLoading && <LoadingText>Loading...</LoadingText>}
+        {isError && <ErrorText>Error fetching data.</ErrorText>}
 
-          <StyledName>
-            <Gif>
-              <img src={pokemonDetails.sprites?.other?.showdown?.front_default} alt="" />
-            </Gif>
+        {pokemonDetails && !isLoading && !isError && (
+          <StyledDetails>
+            <PokemonPicture>{pokemonDetails.sprites.other.dream_world.front_default && <img src={pokemonDetails.sprites.other.dream_world.front_default} alt="Sprite" />}</PokemonPicture>
 
-            <h1>
-              <Name>{pokemonDetails.name}</Name> #{pokemonDetails.id}
-            </h1>
-          </StyledName>
+            <StyledName>
+              <Gif>
+                <img src={pokemonDetails.sprites?.other?.showdown?.front_default} alt="" />
+              </Gif>
 
-          <About>
-            <AboutData>
-              <span>{pokemonDetails.height}</span>
-              <span>Height</span>
-            </AboutData>
-            <AboutData>
-              <span>{pokemonDetails.weight}</span>
-              <span>Weight</span>
-            </AboutData>
-            <AboutData>
-              <span>{pokemonDetails.base_experience}</span>
-              <span>Experience</span>
-            </AboutData>
-          </About>
+              <h1>
+                <Name>{pokemonDetails.name}</Name> <Id>#{pokemonDetails.id}</Id>
+              </h1>
+            </StyledName>
 
-          <h3>Types</h3>
-          <Types>
-            {pokemonDetails.types?.map((type, index) => (
-              <Type key={index}>{type.type.name}</Type>
-            ))}
-          </Types>
+            <About>
+              <AboutData>
+                <span>{pokemonDetails.height}</span>
+                <span>Height</span>
+              </AboutData>
+              <AboutData>
+                <span>{pokemonDetails.weight}</span>
+                <span>Weight</span>
+              </AboutData>
+              <AboutData>
+                <span>{pokemonDetails.base_experience}</span>
+                <span>Experience</span>
+              </AboutData>
+            </About>
 
-          <h3>Abilities</h3>
-          <Ability>
-            {pokemonDetails.abilities?.map((ability, index) => (
-              <li key={index}>{ability.ability.name.replace("-", " ")}</li>
-            ))}
-          </Ability>
-
-          <h3>Stats</h3>
-          <Stats>
-            {pokemonDetails.stats
-              ?.filter((stat) => !stat.stat.name.includes("special"))
-              .map((stat) => (
-                <Stat key={stat.stat.name}>
-                  <span>{stat.base_stat}</span>
-                  <span>{stat.stat.name}</span>
-                </Stat>
+            <h3>Types</h3>
+            <Types>
+              {pokemonDetails.types?.map((type, index) => (
+                <Type key={index}>{type.type.name}</Type>
               ))}
-          </Stats>
-        </StyledDetails>
+            </Types>
+
+            <h3>Abilities</h3>
+            <Abilities>
+              {pokemonDetails.abilities?.map((ability, index) => (
+                <Ability key={index}>{ability.ability.name.replace("-", " ")}</Ability>
+              ))}
+            </Abilities>
+
+            <h3>Stats</h3>
+            <Stats>
+              {pokemonDetails.stats
+                ?.filter((stat) => !stat.stat.name.includes("special"))
+                .map((stat) => (
+                  <Stat key={stat.stat.name}>
+                    <span>{stat.base_stat}</span>
+                    <span>{stat.stat.name}</span>
+                  </Stat>
+                ))}
+            </Stats>
+          </StyledDetails>
+        )}
       </section>
 
       <Footer />
