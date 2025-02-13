@@ -36,11 +36,20 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body {
+    width: 100%;
     font-size: 1rem;
     line-height: 1.6;
     font-family: ${theme.fonts.body}; 
     background-color: ${theme.colors.gray};
-    color: black;
+    color: ${theme.colors.dark};
+  }
+
+  section {
+    max-width: 1280px;
+    min-height: 100vh;
+    margin: 0 auto;
+    background-color: white;
+    padding: ${theme.sizes.clamp24};
   }
 
   a {
